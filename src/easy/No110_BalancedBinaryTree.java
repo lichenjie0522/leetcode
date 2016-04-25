@@ -25,24 +25,19 @@ public class No110_BalancedBinaryTree {
 		if (root == null) {
 			return true;
 		}
-		int l = height(root.left);
-		int r = height(root.right);
-		if (l < 0 || r < 0 || Math.abs(l - r) > 1) {
+		int left = getDepth(root.left);
+		int right = getDepth(root.right);
+		if (Math.abs(left - right) > 1) {
 			return false;
 		}
-		return true;
+		return isBalanced(root.left) && isBalanced(root.right);
 	}
 
-	private int height(TreeNode root) {
-		if (root == null) {
+	private int getDepth(TreeNode node) {
+		if (node == null) {
 			return 0;
 		}
-		int l = height(root.left);
-		int r = height(root.right);
-		if (l < 0 || r < 0 || Math.abs(l - r) > 1) {
-			return -1;
-		}
-		return l < r ? r + 1 : l + 1;
+		return 1 + Math.max(getDepth(node.left), getDepth(node.right));
 	}
 
 }
